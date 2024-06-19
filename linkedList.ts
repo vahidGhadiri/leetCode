@@ -13,7 +13,6 @@ interface ILinkedList<T> {
 export class Node<T>{
     public prev: Node<T> | null
     public next: Node<T> | null
-    public prev: Node<T> | null
     constructor(public data: T) { }
 }
 
