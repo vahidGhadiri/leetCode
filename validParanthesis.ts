@@ -8,7 +8,8 @@ function isValid(s: string): boolean {
 
     for (const char of s) {
         if (char in bracketMap) {
-            const topElement = stack.length === 0 ? '#' : stack.pop();
+            const topElement = stack.length && stack.pop();
+
             if (topElement !== bracketMap[char]) {
                 return false;
             }
@@ -16,6 +17,5 @@ function isValid(s: string): boolean {
             stack.push(char);
         }
     }
-
-    return stack.length === 0;
+    return stack.length === 0
 }
