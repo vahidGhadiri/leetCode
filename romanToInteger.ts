@@ -1,4 +1,3 @@
-//@ts-nocheck
 function romanToInt(s: string): number {
     const romanToInteger = {
         I: 1,
@@ -28,6 +27,3 @@ function romanToInt(s: string): number {
 
     return total
 };
-console.log(
-    romanToInt("XXI")
-)
