@@ -16,6 +16,5 @@ function isValid(s: string): boolean {
             stack.push(char);
         }
     }
-
-    return stack.length === 0;
+    return stack.length === 0
 }
