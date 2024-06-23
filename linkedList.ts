@@ -1,5 +1,11 @@
+export class Node<T>{
+    public prev: Node<T> | null
+    public next: Node<T> | null
+    constructor(public data: T) { }
+}
 interface ILinkedList<T> {
     search: (fn: (data: T) => boolean) => Node<T> | null
+    deleteDuplicates: (head: Node<T> | null) => void
     updateAtIndex: (index: number, data: T) => void
     insertInBegin: (data: T) => Node<T>
     insertAtEnd: (data: T) => Node<T>
@@ -9,13 +15,6 @@ interface ILinkedList<T> {
     size: () => number
     clear: () => void
 }
-
-export class Node<T>{
-    public prev: Node<T> | null
-    public next: Node<T> | null
-    constructor(public data: T) { }
-}
-
 export class LinkedList<T> implements ILinkedList<T> {
     private head: Node<T> | null
     private length: number
@@ -78,6 +77,19 @@ export class LinkedList<T> implements ILinkedList<T> {
                 return
             }
             current = current.next
+        }
+    }
+
+    public deleteDuplicates(head: Node<T> | null): void {
+        if (!head || !head?.next) return
+        let current = this.head
+        while (current && current.next) {
+            if (current.data === current.next.data) {
+                current.next = current.next.next
+                this.length--
+            } else {
+                current = current.next
+            }
         }
     }
 
