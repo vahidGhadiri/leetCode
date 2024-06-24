@@ -1,0 +1,29 @@
+/**
+ * Given an integer x, return true if x is a palindrome, and false otherwise.
+ * An integer is a palindrome when it reads the same forward and backward.For example, 121 is a palindrome while 123 is not.
+ * @param x 
+ * @returns Boolean
+ */
+function isPalindrome(x: number): boolean {
+    // Special cases:
+    // 1. Negative numbers are not palindromes
+    // 2. Numbers ending in zero (except zero itself) are not palindromes
+    if (x < 0 || (x % 10 === 0 && x !== 0)) {
+        return false;
+    }
+
+    let reversedNumber = 0;
+    let originalNumber = x;
+
+    while (x > 0) {
+        // Extract the last digit of x
+        const lastDigit = x % 10;
+        // Build the reversed number
+        reversedNumber = reversedNumber * 10 + lastDigit;
+        // Remove the last digit from x
+        x = Math.floor(x / 10);
+    }
+
+    // After reversing, compare the original number with the reversed number
+    return originalNumber === reversedNumber;
+}
