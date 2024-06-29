@@ -54,22 +54,23 @@ export class DoubleLinkedList<T> implements IDoubleLinkedList<T> {
     }
 
     public insertAfter(node: Node<T>, data: T): Node<T> | null {
-        if (node === null) return null
+        if (node === null) return null;
 
-        const newNode = new Node(data)
-        const nextNode = node.next
+        const newNode = new Node(data);
+        const nextNode = node.next;
 
-        node.next = newNode
-        newNode.next = nextNode
+        node.next = newNode;
+        newNode.prev = node;
+        newNode.next = nextNode;
 
         if (nextNode !== null) {
-            nextNode.prev = newNode
+            nextNode.prev = newNode;
         } else {
-            this.tail = newNode
+            this.tail = newNode;
         }
 
-        this.length++
-        return null
+        this.length++;
+        return newNode;
     }
 
     public search(fn: (data: T) => boolean): Node<T> | null {
