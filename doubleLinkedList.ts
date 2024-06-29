@@ -14,6 +14,8 @@ interface IDoubleLinkedList<T> {
     insertInBegin: (data: T) => Node<T>
     insertAtEnd: (data: T) => Node<T>
     delete: (node: Node<T>) => void
+    reverseTraverse: () => T[]
+    traverse: () => T[]
 }
 
 export class DoubleLinkedList<T> implements IDoubleLinkedList<T> {
@@ -114,4 +116,24 @@ export class DoubleLinkedList<T> implements IDoubleLinkedList<T> {
         this.length--
     }
 
+    public traverse(): T[] {
+        let current = this.head
+        let stack: T[] = []
+
+        while (current !== null) {
+            stack.push(current.data)
+            current = current.next
+        }
+        return stack
+    }
+
+    public reverseTraverse(): T[] {
+        let current = this.tail
+        let stack: T[] = []
+        while (current !== null) {
+            stack.push(current.data)
+            current = current.prev
+        }
+        return stack
+    }
 }
