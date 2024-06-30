@@ -15,6 +15,7 @@ interface IBinaryTree<T> {
     postOrderTraversal: (node: TreeNode<T> | null) => void
     search: (value: T, node: TreeNode<T> | null) => boolean
     maxDepth: (node: TreeNode<T> | null) => number;
+    delete: (value: T, node: TreeNode<T>) => TreeNode<T> | null
     printTree: () => void
 }
 
@@ -40,14 +41,9 @@ class BinaryTree<T> implements IBinaryTree<T> {
 
     private printSubTree(node: TreeNode<T> | null, prefix: string, isLeft: boolean): void {
         if (node === null) return;
-
-        // Print the current node value
         console.log(prefix + (isLeft ? '├── ' : '└── ') + node.value);
 
-        // Calculate the new prefix for children
         const newPrefix = prefix + (isLeft ? '│   ' : '    ');
-
-        // Recursive calls for left and right children
         this.printSubTree(node.left, newPrefix, true);
         this.printSubTree(node.right, newPrefix, false);
     }
@@ -58,7 +54,6 @@ class BinaryTree<T> implements IBinaryTree<T> {
             return;
         }
 
-        // Start printing from the root with an empty prefix
         this.printSubTree(this.root, '', false);
         console.log("*** End of tree ***");
     }
@@ -117,6 +112,69 @@ class BinaryTree<T> implements IBinaryTree<T> {
         return Math.max(leftDepthLength, rightDepthLength) + 1;
     }
 
+    public delete(value: T, node: TreeNode<T> | null = this.root): TreeNode<T> | null {
+        if (node === null) return null
+
+        if (value < node.value) {
+            node.left = this.delete(value, node.left)
+        } else if (value > node.value) {
+            node.right = this.delete(value, node.right)
+        } else {
+            if (node.left === null && node.right === null) {
+                return null
+            }
+            if (node.left === null) {
+                return node.right
+            }
+
+            if (node.right === null) {
+                return node.left
+            }
+
+            let minNode = node.right
+            while (minNode.left !== null) {
+                minNode = minNode.left
+            }
+            node.value = minNode.value
+            node.right = this.delete(minNode.value, node.right)
+        }
+        return node
+    }
+
+    public countNodes(node: TreeNode<T> | null = this.root): number {
+        if (node === null) return 0
+        const leftNodes = this.countNodes(node.left)
+        const rightNodes = this.countNodes(node.right)
+
+        return 1 + leftNodes + rightNodes
+    }
+
+
+    public invert(node: TreeNode<T> | null = this.root): TreeNode<T> | null {
+        if (node === null) return null;
+        [node.left, node.right] = [node.right, node.left];
+        this.invert(node.left);
+        this.invert(node.right);
+
+        return node;
+    }
+
+    public BFS(): T[] {
+        const result: T[] = [];
+        const queue: (TreeNode<T> | null)[] = [];
+
+        if (this.root !== null) queue.push(this.root);
+
+        while (queue.length > 0) {
+            const node = queue.shift() as TreeNode<T> | null
+            if (node !== null) {
+                result.push(node.value);
+                if (node.left !== null) queue.push(node.left);
+                if (node.right !== null) queue.push(node.right);
+            }
+        }
+        return result;
+    }
 }
 
 const tree = new BinaryTree<number>();
