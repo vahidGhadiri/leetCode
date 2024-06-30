@@ -119,7 +119,6 @@ class BinaryTree<T> implements IBinaryTree<T> {
 
 }
 
-// Example usage:
 const tree = new BinaryTree<number>();
 tree.insert(10);
 tree.insert(5);
@@ -129,4 +128,19 @@ tree.insert(7);
 tree.insert(12);
 tree.insert(18);
 
+console.log("Binary Tree Structure:");
 tree.printTree();
+
+console.log("\nIn-Order Traversal:");
+tree.inOrderTraversal(tree.root);
+
+console.log("\nPre-Order Traversal:");
+tree.preOrderTraversal(tree.root);
+
+console.log("\nPost-Order Traversal:");
+tree.postOrderTraversal(tree.root);
+
+console.log("\nSearch for value 7:", tree.search(7));
+console.log("Search for value 20:", tree.search(20));
+
+console.log("\nMaximum Depth of the Tree:", tree.maxDepth());
