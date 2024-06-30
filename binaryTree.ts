@@ -15,6 +15,7 @@ interface IBinaryTree<T> {
     postOrderTraversal: (node: TreeNode<T> | null) => void
     search: (value: T, node: TreeNode<T> | null) => boolean
     maxDepth: (node: TreeNode<T> | null) => number;
+    delete: (value: T, node: TreeNode<T>) => TreeNode<T> | null
     printTree: () => void
 }
 
@@ -115,6 +116,35 @@ class BinaryTree<T> implements IBinaryTree<T> {
         const rightDepthLength: number = this.maxDepth(node.right);
 
         return Math.max(leftDepthLength, rightDepthLength) + 1;
+    }
+
+    public delete(value: T, node: TreeNode<T> | null = this.root): TreeNode<T> | null {
+        if (node === null) return null
+
+        if (value < node.value) {
+            node.left = this.delete(value, node.left)
+        } else if (value > node.value) {
+            node.right = this.delete(value, node.right)
+        } else {
+            if (node.left === null && node.right === null) {
+                return null
+            }
+            if (node.left === null) {
+                return node.right
+            }
+
+            if (node.right === null) {
+                return node.left
+            }
+
+            let minNode = node.right
+            while (minNode.left !== null) {
+                minNode = minNode.left
+            }
+            node.value = minNode.value
+            node.right = this.delete(minNode.value, node.right)
+        }
+        return node
     }
 
 }
