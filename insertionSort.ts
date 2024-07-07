@@ -1,5 +1,5 @@
 const insertionSort = (arr: number[]): number[] => {
-    for (let i = 0; i < arr.length; i++) {
+    for (let i = 1; i < arr.length; i++) {
         let current = arr[i]
         let j = i - 1
         while (j >= 0 && arr[j] > current) {
