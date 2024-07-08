@@ -24,13 +24,13 @@ function strStr(haystack: string, needle: string): number {
 };
 
 //Knuth-morris-pratt algorithm 
-function generateLPS(p: string): number[] {
-    const lps = new Array(p.length).fill(0);
+function generateLPS(needle: string): number[] {
+    const lps = new Array(needle.length).fill(0);
     let j = 0;
     let i = 1;
 
-    while (i < p.length) {
-        if (p[i] === p[j]) {
+    while (i < needle.length) {
+        if (needle[i] === needle[j]) {
             j++;
             lps[i] = j;
             i++;
