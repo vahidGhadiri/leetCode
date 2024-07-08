@@ -18,16 +18,13 @@ function isPalindrome(x: number): boolean {
     while (x > 0) {
         // Extract the last digit of x
         const lastDigit = x % 10;
-        console.log('lastDigits', lastDigit)
         // Build the reversed number
         reversedNumber = reversedNumber * 10 + lastDigit;
-        console.log('reversedNumber', reversedNumber)
         // Remove the last digit from x
         x = Math.floor(x / 10);
         console.log('x', x)
         console.log(x)
         loop++
-        console.log('**************************** loop ****************************', loop)
     }
 
     // After reversing, compare the original number with the reversed number
