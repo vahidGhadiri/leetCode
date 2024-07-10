@@ -11,7 +11,7 @@ class TreeNode<T> {
 interface IBinaryTree<T> {
     insert: (value: T) => void
     inOrderTraversal: (node: TreeNode<T> | null) => T[]
-    preOrderTraversal: (node: TreeNode<T> | null) => void
+    preOrderTraversal: (node: TreeNode<T> | null) => T[]
     postOrderTraversal: (node: TreeNode<T> | null) => T[]
     search: (value: T, node: TreeNode<T> | null) => boolean
     maxDepth: (node: TreeNode<T> | null) => number;
@@ -80,12 +80,17 @@ class BinaryTree<T> implements IBinaryTree<T> {
         return result
     }
 
-    public preOrderTraversal(node: TreeNode<T> | null): void {
-        if (node !== null) {
-            console.log(node.value);
-            this.preOrderTraversal(node.left);
-            this.preOrderTraversal(node.right);
+    public preOrderTraversal(node: TreeNode<T> | null): T[] {
+        const result: T[] = []
+
+        function traverse(node: TreeNode<T> | null) {
+            if (node === null) return
+            result.push(node.value)
+            traverse(node.left)
+            traverse(node.right)
         }
+        traverse(node)
+        return result
     }
 
     public postOrderTraversal(node: TreeNode<T> | null = this.root): T[] {
