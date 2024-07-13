@@ -18,6 +18,7 @@ interface IBinaryTree<T> {
     delete: (value: T, node: TreeNode<T>) => TreeNode<T> | null
     countNodes: (node: TreeNode<T> | null) => number
     printTree: () => void
+    invertTree: (node: TreeNode<T> | null) => TreeNode<T> | null
 }
 
 
@@ -166,15 +167,14 @@ class BinaryTree<T> implements IBinaryTree<T> {
     }
 
 
-    public invert(node: TreeNode<T> | null = this.root): TreeNode<T> | null {
+    public invertTree(node: TreeNode<T> | null = this.root): TreeNode<T> | null {
         if (node === null) return null;
         [node.left, node.right] = [node.right, node.left];
-        this.invert(node.left);
-        this.invert(node.right);
+        this.invertTree(node.left);
+        this.invertTree(node.right);
 
         return node;
     }
-
     public BFS(): T[] {
         const result: T[] = [];
         const queue: (TreeNode<T> | null)[] = [];
