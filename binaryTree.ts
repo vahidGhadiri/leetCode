@@ -16,6 +16,7 @@ interface IBinaryTree<T> {
     search: (value: T, node: TreeNode<T> | null) => boolean
     maxDepth: (node: TreeNode<T> | null) => number;
     delete: (value: T, node: TreeNode<T>) => TreeNode<T> | null
+    countNodes: (node: TreeNode<T> | null) => number
     printTree: () => void
 }
 
