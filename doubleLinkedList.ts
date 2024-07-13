@@ -15,6 +15,7 @@ interface IDoubleLinkedList<T> {
     insertAtEnd: (data: T) => Node<T>
     delete: (node: Node<T>) => void
     reverseTraverse: () => T[]
+    hasCycle: () => boolean
     traverse: () => T[]
 }
 
@@ -136,5 +137,25 @@ export class DoubleLinkedList<T> implements IDoubleLinkedList<T> {
             current = current.prev
         }
         return stack
+    }
+
+    //Using Floyd's cycle algorithm (also tortoise or hare algorithm)
+    public hasCycle(): boolean {
+        let current = this.head
+        if (current === null) return false
+
+        let slowPointer = this.head
+        let fastPointer = this.head
+
+        while (fastPointer !== null && fastPointer.next !== null) {
+            slowPointer = slowPointer?.next as Node<T>
+            fastPointer = fastPointer.next.next as Node<T>
+
+            if (slowPointer === fastPointer) {
+                return true
+            }
+        }
+
+        return false
     }
 }
