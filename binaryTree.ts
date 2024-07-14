@@ -175,6 +175,7 @@ class BinaryTree<T> implements IBinaryTree<T> {
 
         return node;
     }
+
     public BFS(): T[] {
         const result: T[] = [];
         const queue: (TreeNode<T> | null)[] = [];
