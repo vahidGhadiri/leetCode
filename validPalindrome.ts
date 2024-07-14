@@ -6,12 +6,16 @@ Given a string s, return true if it is a palindrome, or false otherwise.
  * @returns 
  */
 
+// solution 1
 function isPalindrome(s: string): boolean {
     const cleanedString = s.toLowerCase().replace(/[^a-z0-9]/g, '');
     const reversedString = cleanedString.split('').reverse().join('');
 
     return cleanedString === reversedString;
 };
+// TimeComplexity: O(n)
+// TimeComplexity: O(n)
+
 
 // solution 2
 function isPalindrome2(s: string) {
@@ -21,6 +25,29 @@ function isPalindrome2(s: string) {
     while (word.length > 0) {
         reversedWord += word.pop()
     }
-    
+
     return reversedWord === s
 }
+
+// TimeComplexity: O(n)
+// TimeComplexity: O(n)
+
+
+// Solution 3
+function isPalindrome3(s: string): boolean {
+    let left = 0;
+    let right = s.length - 1;
+
+    while (left < right) {
+        if (s[left] !== s[right]) {
+            return false;
+        }
+        left++;
+        right--;
+    }
+
+    return true;
+}
+
+// TimeComplexity: O(n)
+// SpaceComplexity: O(1)
