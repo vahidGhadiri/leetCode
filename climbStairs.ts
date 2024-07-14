@@ -51,5 +51,47 @@ function climbStairs_3(n: number): number {
 // SpaceComplexity: O(1)
 
 
-//There is another solution with matrix exponentiation 
-// learn it and resolve it as soon as possible 
+//Solution 4 - matrix exponentiation
+function matrixMultiply(a: number[][], b: number[][]): number[][] {
+    let result = [
+        [0, 0],
+        [0, 0]
+    ];
+    for (let i = 0; i < 2; i++) {
+        for (let j = 0; j < 2; j++) {
+            for (let k = 0; k < 2; k++) {
+                result[i][j] += a[i][k] * b[k][j];
+            }
+        }
+    }
+    return result;
+}
+
+function matrixPower(matrix: number[][], power: number): number[][] {
+    let result = [
+        [1, 0],
+        [0, 1]
+    ];
+    let base = matrix;
+    while (power > 0) {
+        if (power % 2 === 1) {
+            result = matrixMultiply(result, base);
+        }
+        base = matrixMultiply(base, base);
+        power = Math.floor(power / 2);
+    }
+    return result;
+}
+
+function climbStairs_4(n: number): number {
+    if (n <= 1) return 1;
+    let matrix = [
+        [1, 1],
+        [1, 0]
+    ];
+    let resultMatrix = matrixPower(matrix, n - 1);
+    return resultMatrix[0][0] + resultMatrix[0][1];
+}
+
+console.log(climbStairs(5));
+
