@@ -12,3 +12,15 @@ function isPalindrome(s: string): boolean {
 
     return cleanedString === reversedString;
 };
+
+// solution 2
+function isPalindrome2(s: string) {
+    const word = s.split("")
+    let reversedWord = ""
+
+    while (word.length > 0) {
+        reversedWord += word.pop()
+    }
+    
+    return reversedWord === s
+}
