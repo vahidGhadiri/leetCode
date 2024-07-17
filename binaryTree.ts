@@ -50,6 +50,17 @@ class BinaryTree<T> implements IBinaryTree<T> {
         this.printSubTree(node.right, newPrefix, false);
     }
 
+
+    private checkSymmetric(leftSubtree: TreeNode<T> | null, rightSubtree: TreeNode<T> | null): boolean {
+        if (leftSubtree === null && rightSubtree === null) return true
+        if (leftSubtree === null || rightSubtree === null) return false
+
+        return (leftSubtree.value === rightSubtree.value) &&
+            this.checkSymmetric(leftSubtree.left, rightSubtree.right) &&
+            this.checkSymmetric(leftSubtree.right, rightSubtree.left)
+
+    }
+
     public printTree(): void {
         if (this.root === null) {
             console.log("Tree is empty.");
@@ -106,6 +117,24 @@ class BinaryTree<T> implements IBinaryTree<T> {
         }
         traverse(node)
         return result
+    }
+
+
+    public BFS(): T[] {
+        const result: T[] = [];
+        const queue: (TreeNode<T> | null)[] = [];
+
+        if (this.root !== null) queue.push(this.root);
+
+        while (queue.length > 0) {
+            const node = queue.shift() as TreeNode<T> | null
+            if (node !== null) {
+                result.push(node.value);
+                if (node.left !== null) queue.push(node.left);
+                if (node.right !== null) queue.push(node.right);
+            }
+        }
+        return result;
     }
 
     public search(value: T, node: TreeNode<T> | null = this.root): boolean {
@@ -176,22 +205,12 @@ class BinaryTree<T> implements IBinaryTree<T> {
         return node;
     }
 
-    public BFS(): T[] {
-        const result: T[] = [];
-        const queue: (TreeNode<T> | null)[] = [];
-
-        if (this.root !== null) queue.push(this.root);
-
-        while (queue.length > 0) {
-            const node = queue.shift() as TreeNode<T> | null
-            if (node !== null) {
-                result.push(node.value);
-                if (node.left !== null) queue.push(node.left);
-                if (node.right !== null) queue.push(node.right);
-            }
-        }
-        return result;
+    public isSymmetric(): boolean {
+        if (this.root === null) return true
+        return this.checkSymmetric(this.root.left, this.root.right)
     }
+
+
 }
 
 const tree = new BinaryTree<number>();
