@@ -72,4 +72,30 @@ class CircularLinkedList<T> implements ICircularLinkedList<T> {
         this.length++
         return newNode
     }
+
+    public updateAtIndex(index: number, data: T): void {
+        if(index < 0 || index > this.length || this.head === null) return 
+
+        let current = this.head
+        let currentIndex = 0
+
+    }
+
+    // public updateAtIndex(index: number, data: T): void {
+    //     if (index < 0 || index >= this.length || this.head === null) {
+    //         throw new Error("Index out of bounds or list is empty")
+    //     }
+
+    //     let current = this.head
+    //     for (let i = 0; i < index; i++) {
+    //         if (current === null) {
+    //             throw new Error("Index out of bounds")
+    //         }
+    //         current = current.next
+    //     }
+
+    //     if (current !== null) {
+    //         current.data = data
+    //     }
+    // }
 }
