@@ -8,7 +8,7 @@ class CLLNode<T> {
 
 interface ICircularLinkedList<T> {
     insertAfter: (node: CLLNode<T>, data: T) => CLLNode<T> | null
-    // search: (fn: (data: T) => boolean) => CLLNode<T> | null
+    search: (fn: (data: T) => boolean) => CLLNode<T> | null
     updateAtIndex: (index: number, data: T) => void
     insertInBegin: (data: T) => CLLNode<T>
     insertAtEnd: (data: T) => CLLNode<T>
@@ -92,4 +92,15 @@ class CircularLinkedList<T> implements ICircularLinkedList<T> {
         currentNode!.data = data
     }
 
+    public search(fn: (data: T) => boolean): CLLNode<T> | null {
+        if (this.head === null) return null
+        let currentNode = this.head
+
+        do {
+            if (fn(currentNode.data)) {
+                return currentNode
+            }
+        } while (currentNode !== this.head)
+        return null
+    }
 }
