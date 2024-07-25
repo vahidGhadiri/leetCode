@@ -9,7 +9,7 @@ class CLLNode<T> {
 interface ICircularLinkedList<T> {
     insertAfter: (node: CLLNode<T>, data: T) => CLLNode<T> | null
     // search: (fn: (data: T) => boolean) => CLLNode<T> | null
-    // updateAtIndex: (index: number, data: T) => void
+    updateAtIndex: (index: number, data: T) => void
     insertInBegin: (data: T) => CLLNode<T>
     insertAtEnd: (data: T) => CLLNode<T>
     // delete: (node: CLLNode<T>) => void
@@ -58,44 +58,38 @@ class CircularLinkedList<T> implements ICircularLinkedList<T> {
     }
 
     public insertAfter(node: CLLNode<T>, data: T): CLLNode<T> | null {
-        if (node === null) {
-            return null
+        if (!node) {
+            return null;
         }
-        const newNode = new CLLNode(data)
-        node.next = newNode
+        const newNode = new CLLNode(data);
+        newNode.next = node.next;
+        node.next = newNode;
 
         if (node === this.tail) {
-            this.tail = newNode
-            this.tail.next = this.head
+            this.tail = newNode;
+            this.tail.next = this.head;
         }
 
-        this.length++
-        return newNode
+        this.length++;
+        return newNode;
     }
+
 
     public updateAtIndex(index: number, data: T): void {
-        if(index < 0 || index > this.length || this.head === null) return 
+        if (index < 0 || index > this.length) {
+            return
+        }
 
-        let current = this.head
+
+        let currentNode = this.head
         let currentIndex = 0
 
+        while (currentIndex < index) {
+            currentNode = currentNode!.next
+            currentIndex++
+        }
+
+        currentNode!.data = data
     }
 
-    // public updateAtIndex(index: number, data: T): void {
-    //     if (index < 0 || index >= this.length || this.head === null) {
-    //         throw new Error("Index out of bounds or list is empty")
-    //     }
-
-    //     let current = this.head
-    //     for (let i = 0; i < index; i++) {
-    //         if (current === null) {
-    //             throw new Error("Index out of bounds")
-    //         }
-    //         current = current.next
-    //     }
-
-    //     if (current !== null) {
-    //         current.data = data
-    //     }
-    // }
 }
