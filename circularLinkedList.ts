@@ -14,7 +14,6 @@ interface ICircularLinkedList<T> {
     insertAtEnd: (data: T) => CLLNode<T>
     delete: (node: CLLNode<T>) => void
     // reverseTraverse: () => T[]
-    // hasCycle: () => boolean
     // traverse: () => T[]
 }
 
@@ -128,6 +127,37 @@ class CircularLinkedList<T> implements ICircularLinkedList<T> {
                 return
             }
         } while (currentNode !== this.head)
+    }
 
+    public traverse(): T[] {
+        const result: T[] = []
+        if (this.head === null) return result
+
+        let current = this.head as CLLNode<T> | null
+
+        do {
+            result.push(current!.data)
+            current = current!.next
+        } while (current !== this.head)
+        return result
+    }
+
+
+    public reverseTraverse(): T[] {
+        const result: T[] = []
+        if (this.head === null) return result
+
+        let current = this.head as CLLNode<T> | null
+
+        do {
+            result.push(current!.data)
+            let prevNode: CLLNode<T> | null = this.head
+            while (prevNode!.next !== current) {
+                prevNode = prevNode!.next
+            }
+            current = prevNode
+        } while (current !== this.head)
+
+        return result
     }
 }
