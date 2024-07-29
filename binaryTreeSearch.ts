@@ -13,6 +13,11 @@ Output: []
  */
 
 //  Definition for a binary tree node.
+
+
+//Solution #1: Recursion
+//Time Complexity: O(h) ** h is height of the tree
+//Space complexity: O(n) 
 class BTSNode {
     val: number
     left: BTSNode | null
@@ -35,3 +40,17 @@ function searchBST(root: BTSNode | null, val: number): BTSNode | null {
         return root
     }
 };
+
+//Solution #2: Iterative 
+function searchBinaryTree(root: BTSNode | null, val: number): BTSNode | null {
+    while (root !== null) {
+        if (root.val === val) {
+            return root
+        } else if (root.val < val) {
+            root = root.right
+        } else {
+            root = root.left
+        }
+    }
+    return null
+}
