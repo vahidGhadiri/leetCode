@@ -7,7 +7,13 @@ class AVLNode<T> {
     ) { }
 }
 
-class AVLTree<T> {
+interface IAVLTree<T> {
+    insert: (value: T) => void
+    search: (fn: (value: T) => boolean) => AVLNode<T> | null
+}
+
+class AVLTree<T> implements IAVLTree<T>{
+    search: (fn: (value: T) => boolean) => AVLNode<T> | null;
     private root: AVLNode<T> | null = null;
 
     // Helper function to get the height of a node
