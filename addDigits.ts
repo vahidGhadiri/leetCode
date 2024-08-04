@@ -40,3 +40,18 @@ function addDigits(num: number): number {
     return num
 }
 
+
+/**
+ * Solution #1: Mathematical formula (Digital root)
+ * Time Complexity: O(1)
+ * Space Complexity: O(1)
+ * @param num 
+ * @returns 
+ */
+function addDigits2(num: number): number {
+    if (num === 0) {
+        return 0
+    } else {
+        return 1 + (num - 1) % 9
+    }
+}
