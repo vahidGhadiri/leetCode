@@ -44,3 +44,24 @@ function intersection(nums1: number[], nums2: number[]): number[] {
     }
     return ans
 }
+
+
+/**
+ * Solution #2 :  Hashmap
+ * Time Complexity: O(n)
+ * Space Complexity: O(1)
+ * @param nums1 
+ * @param nums2 
+ */
+function intersection2(nums1: number[], nums2: number[]): number[] {
+    let set1 = new Set<number>(nums1)
+    let ans = new Set<number>()
+
+    for (let num of nums2) {
+        if (set1.has(num)) {
+            ans.add(num)
+        }
+    }
+
+    return Array.from(ans)
+}
