@@ -102,20 +102,45 @@ export class DoubleLinkedList<T> implements IDoubleLinkedList<T> {
 
     }
 
-    public delete(node: Node<T>): void {
-        if (node.prev !== null) {
-            node.prev.next = node.next
-        } else {
-            this.head = node.next
+    public delete(node: ListNode<T>): void {
+        if (!node || this.length === 0) return; // Node must be valid and list must not be empty
+
+        // Handle the case where the node to be deleted is the head
+        if (node === this.head) {
+            this.head = node.next;
+            if (this.head) {
+                this.head.prev = null;
+            } else {
+                // The list is now empty
+                this.tail = null;
+            }
         }
 
-        if (node.next !== null) {
-            node.next.prev = node.prev
-        } else {
-            this.tail = node.prev
+        // Handle the case where the node to be deleted is the tail
+        if (node === this.tail) {
+            this.tail = node.prev;
+            if (this.tail) {
+                this.tail.next = null;
+            } else {
+                // The list is now empty
+                this.head = null;
+            }
         }
 
-        this.length--
+        // Handle the case where the node is neither the head nor the tail
+        if (node.prev) {
+            node.prev.next = node.next;
+        }
+        if (node.next) {
+            node.next.prev = node.prev;
+        }
+
+        // Nullify the deleted node's pointers (good practice)
+        node.prev = null;
+        node.next = null;
+
+        // Decrease the length of the list
+        this.length--;
     }
 
     public traverse(): T[] {
