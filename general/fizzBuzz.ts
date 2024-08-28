@@ -22,7 +22,7 @@ Output: ["1","2","Fizz","4","Buzz","Fizz","7","8","Fizz","Buzz","11","Fizz","13"
 
 
 /**
- * Solution #1: 
+ * Solution #1: Iterative
  * Time Complexity: O(n)
  * Space Complexity: O(n)
  * @param n 
@@ -45,6 +45,30 @@ function fizzBuzz(n: number): string[] {
     return ans
 };
 
-const Input = 15
 
-console.log(fizzBuzz(Input))
+/**
+ * Solution #2: Hashmap
+ * Time Complexity: O(n)
+ * Space Complexity: O(n)
+ * @param n
+ * @returns
+ */
+function fizzBuzz2(n: number): string[] {
+    const ans: string[] = []
+
+    const hashMap = new Map<number, string>()
+    hashMap.set(3, "Fizz")
+    hashMap.set(5, "Buzz")
+
+    for (let i = 1; i <= n; i++) {
+        let temp = ''
+        for (const [key, value] of hashMap) {
+            if (i % key === 0) {
+                temp += value
+            }
+        }
+        ans.push(temp || i.toString())
+    }
+
+    return ans
+}
