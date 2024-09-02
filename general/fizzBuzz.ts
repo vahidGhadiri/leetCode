@@ -63,6 +63,8 @@ function fizzBuzz2(n: number): string[] {
     for (let i = 1; i <= n; i++) {
         let temp = ''
         for (const [key, value] of hashMap) {
+
+            console.log(key, value)
             if (i % key === 0) {
                 temp += value
             }
@@ -72,3 +74,5 @@ function fizzBuzz2(n: number): string[] {
 
     return ans
 }
+
+fizzBuzz2(12)
